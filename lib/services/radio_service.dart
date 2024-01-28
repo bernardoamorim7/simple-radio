@@ -8,7 +8,15 @@ import '../utilities/config.dart';
 
 class RadioService {
   Future<List<RadioModel>> fetchRadios() async {
-    final response = await http.get(Uri.parse(Config.apiUrl));
+    final response = await http.get(
+      Uri.parse(Config.apiUrl),
+      headers: {
+        HttpHeaders.acceptCharsetHeader: 'utf-8',
+        HttpHeaders.acceptHeader: 'application/json',
+        HttpHeaders.contentEncodingHeader: 'utf-8',
+        HttpHeaders.acceptEncodingHeader: 'gzip',
+      },
+    );
 
     if (response.statusCode == HttpStatus.ok) {
       final List jsonResponse = json.decode(response.body);

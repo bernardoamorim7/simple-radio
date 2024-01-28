@@ -7,7 +7,9 @@ import 'ui/screens/home/home_screen.dart';
 import 'ui/screens/settings/settings_screen.dart';
 import 'utilities/app_theme.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(
     const ProviderScope(
       child: SimpleRadio(),
@@ -15,14 +17,18 @@ void main() {
   );
 }
 
-class SimpleRadio extends StatelessWidget {
+class SimpleRadio extends ConsumerWidget {
   const SimpleRadio({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appThemeState = ref.watch(appThemeProvider);
+
     return MaterialApp(
       title: 'Simple Radio',
-      theme: appTheme,
+      theme: appThemeState.isDark ? AppTheme.darkTheme : AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: appThemeState.isDark ? ThemeMode.dark : ThemeMode.light,
       home: HomeScreen(),
       routes: Map<String, WidgetBuilder>.from(
         {

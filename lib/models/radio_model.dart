@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class RadioModel {
   final String name;
   final String url;
@@ -13,10 +15,10 @@ class RadioModel {
 
   factory RadioModel.fromJson(Map<String, dynamic> json) {
     return RadioModel(
-      name: json['name'],
-      url: json['url'],
-      favicon: json['favicon'],
-      tags: json['tags'],
+      name: const Utf8Decoder().convert(json['name'].toString().codeUnits),
+      url: json['url'].toString(),
+      favicon: json['favicon'].toString(),
+      tags: const Utf8Decoder().convert(json['tags'].toString().codeUnits),
     );
   }
 }

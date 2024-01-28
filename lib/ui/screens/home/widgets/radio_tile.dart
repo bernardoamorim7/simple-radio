@@ -20,48 +20,138 @@ class RadioTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final radioTileViewModel = ref.watch(radioTileViewModelProvider);
-
-    return ExpansionTile(
-      title: ListTile(
-        leading: Image.network(
+    return ListTile(
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Image.network(
           favicon,
           width: 50,
           height: 50,
+          semanticLabel: name,
           errorBuilder: (context, error, stackTrace) {
-            return const Icon(
+            return Icon(
               Icons.radio,
               size: 50,
+              color: Theme.of(context).colorScheme.primary,
             );
           },
           loadingBuilder: (context, child, loadingProgress) {
             if (loadingProgress != null) {
-              return const CircularProgressIndicator();
+              return CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.primary,
+              );
             }
             return child;
           },
         ),
-        title: Text(name),
       ),
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.play_arrow),
-              onPressed: () async => radioTileViewModel.play(url),
-            ),
-            IconButton(
-              icon: const Icon(Icons.pause),
-              onPressed: () async => radioTileViewModel.pause(),
-            ),
-            IconButton(
-              icon: const Icon(Icons.stop),
-              onPressed: () async => radioTileViewModel.stop(),
-            ),
-          ],
+      title: Text(
+        name,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.primary,
         ),
-      ],
+      ),
+      onTap: () async {
+        final radioTileViewModel = ref.watch(radioTileViewModelProvider);
+
+        showBottomSheet(
+          context: context,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          enableDrag: false,
+          builder: (context) {
+            return Padding(
+              padding: const EdgeInsets.all(16),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Theme.of(context).colorScheme.shadow,
+                      blurRadius: 10,
+                      spreadRadius: 1,
+                    ),
+                  ],
+                ),
+                child: ListTile(
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      favicon,
+                      width: 50,
+                      height: 50,
+                      semanticLabel: name,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Icon(
+                          Icons.radio,
+                          size: 50,
+                          color: Theme.of(context).colorScheme.primary,
+                        );
+                      },
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress != null) {
+                          return CircularProgressIndicator(
+                            color: Theme.of(context).colorScheme.primary,
+                          );
+                        }
+                        return child;
+                      },
+                    ),
+                  ),
+                  title: Text(
+                    name,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: radioTileViewModel.paused
+                            ? Icon(
+                                Icons.play_arrow,
+                                color: Theme.of(context).colorScheme.primary,
+                                semanticLabel: 'Play',
+                              )
+                            : Icon(
+                                Icons.pause,
+                                color: Theme.of(context).colorScheme.primary,
+                                semanticLabel: 'Pause',
+                              ),
+                        onPressed: () async {
+                          if (radioTileViewModel.playing) {
+                            await radioTileViewModel.pause();
+                          } else {
+                            await radioTileViewModel.resume();
+                          }
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.stop,
+                          color: Theme.of(context).colorScheme.primary,
+                          semanticLabel: 'Stop',
+                        ),
+                        onPressed: () async {
+                          Navigator.pop(context);
+                          await radioTileViewModel.stop();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+
+        if (radioTileViewModel.playing) {
+          await radioTileViewModel.stop();
+        }
+        await radioTileViewModel.play(url);
+      },
     );
   }
 }

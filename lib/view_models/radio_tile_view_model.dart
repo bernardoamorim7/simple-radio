@@ -1,22 +1,46 @@
+import 'package:flutter/foundation.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 
-final radioTileViewModelProvider = Provider((ref) => RadioTileViewModel());
+import '../utilities/config.dart';
 
-class RadioTileViewModel {
+final radioTileViewModelProvider = ChangeNotifierProvider(
+  (ref) => RadioTileViewModel(),
+);
+
+class RadioTileViewModel extends ChangeNotifier {
   final AudioPlayer _player = AudioPlayer();
+  final configState = Config(); 
 
-  Future play(String url) async {
+  RadioTileViewModel() {
+    _player.playerStateStream.listen(_updateState);
+  }
+
+  bool get playing => _player.playing;
+  bool get paused =>
+      _player.playerState.processingState == ProcessingState.ready &&
+      !_player.playing;
+
+  Future<void> play(String url) async {
     await _player.setUrl(url);
-    await _player.setPreferredPeakBitRate(90000);
+    await _player.setPreferredPeakBitRate(configState.audioBitrate.toDouble());
     await _player.play();
   }
 
-  Future pause() async {
+  Future<void> resume() async {
+    await _player.play();
+  }
+
+  Future<void> pause() async {
     await _player.pause();
   }
 
-  Future stop() async {
+  Future<void> stop() async {
     await _player.stop();
+  }
+
+  void _updateState(PlayerState playerState) {
+    notifyListeners();
   }
 }
