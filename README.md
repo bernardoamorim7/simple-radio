@@ -1,6 +1,6 @@
 # Simple Radio
 
-A very simple radio app using Flutter that I made because my mom had some troubles with other apps.
+A very simple radio app using Flutter that I made because my mom had some troubles with other apps.  
 Feel free to send a PR or open an issue if you have any suggestions.
 
 ## Features
