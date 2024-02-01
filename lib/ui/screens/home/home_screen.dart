@@ -95,18 +95,36 @@ class HomeScreen extends ConsumerWidget {
           } else if (snapshot.hasError) {
             return Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.error,
                     color: Theme.of(context).colorScheme.error,
+                    size: 64,
                   ),
                   const SizedBox(height: 16),
-                  const Text('Something went wrong!'),
+                  Text(
+                    'Something went wrong!',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 24,
+                    ),
+                  ),
                   TextButton(
                     onPressed: () async {
                       await homeViewModel.fetchRadios();
                     },
-                    child: const Text('Try Again'),
+                    child: Text(
+                      'Try Again',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Theme.of(context).colorScheme.primary,
+                        decorationStyle: TextDecorationStyle.solid,
+                      ),
+                    ),
                   ),
                 ],
               ),

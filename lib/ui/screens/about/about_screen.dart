@@ -30,7 +30,7 @@ class AboutScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'Version 0.3.0',
+              'Version 0.3.1',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -50,7 +50,7 @@ class AboutScreen extends StatelessWidget {
                       return const LicensePage(
                         applicationIcon: Icon(Icons.radio),
                         applicationName: 'Simple Radio',
-                        applicationVersion: '0.3.0',
+                        applicationVersion: '0.3.1',
                         applicationLegalese: '© 2024 Simple Radio',
                       );
                     },
