@@ -9,11 +9,14 @@ final homeViewModelProvider = Provider((ref) => HomeViewModel());
 
 class HomeViewModel extends ChangeNotifier {
   final RadioService _radioService = RadioService();
-  final radios = <RadioModel>[];
+  final List<RadioModel> radios = <RadioModel>[];
   final ValueNotifier<String> searchQuery = ValueNotifier<String>('');
 
   Future<List<RadioModel>> fetchRadios() async {
-    radios.addAll(await _radioService.fetchRadios());
+    radios.clear();
+    await _radioService.fetchRadios().then(
+          radios.addAll,
+        );
     return radios;
   }
 }

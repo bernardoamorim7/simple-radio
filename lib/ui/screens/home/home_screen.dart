@@ -5,9 +5,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../view_models/home_view_model.dart';
 import 'widgets/radio_tile.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _HomeScreenState();
+  }
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  late Future<void> radiosFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    // ignore: discarded_futures
+    radiosFuture = ref.read(homeViewModelProvider).fetchRadios();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final homeViewModel = ref.watch(homeViewModelProvider);
 
     return Scaffold(
@@ -87,8 +103,7 @@ class HomeScreen extends ConsumerWidget {
         ],
       ),
       body: FutureBuilder(
-        // ignore: discarded_futures
-        future: homeViewModel.fetchRadios(),
+        future: radiosFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -111,9 +126,7 @@ class HomeScreen extends ConsumerWidget {
                     ),
                   ),
                   TextButton(
-                    onPressed: () async {
-                      await homeViewModel.fetchRadios();
-                    },
+                    onPressed: () async => homeViewModel.fetchRadios(),
                     child: Text(
                       'Try Again',
                       style: TextStyle(
@@ -144,7 +157,6 @@ class HomeScreen extends ConsumerWidget {
                             .contains(value.toLowerCase()),
                       )
                       .toList();
-
                   return ListView.builder(
                     itemCount: radios.length,
                     itemBuilder: (context, index) {
