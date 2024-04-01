@@ -3,7 +3,8 @@
 A very simple radio app using Flutter that I made because my mom had some troubles with other apps.  
 Feel free to send a PR or open an issue if you have any suggestions.
 
-**Only tested on Android and Linux. All radios are from Portugal!**
+**Only tested on Android and Linux.**
+**All radios are from Portugal by default! If you wanna change that simply replace the country in the API call URL inside `utilities/config.dart`**
 
 ## Features
 
