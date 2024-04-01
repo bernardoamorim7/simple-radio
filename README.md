@@ -3,14 +3,19 @@
 A very simple radio app using Flutter that I made because my mom had some troubles with other apps.  
 Feel free to send a PR or open an issue if you have any suggestions.
 
+**Only tested on Android and Linux. All radios are from Portugal!**
+
 ## Features
 
 - [x] Play/Pause/Resume/Stop
 - [x] Background play
+- [x] Light and Dark Theme
 - [ ] Volume control
 - [ ] Favorites
 - [ ] Select Country
 - [ ] Select Audio Quality
+- [ ] Notifications
+- [ ] Equalizer
 
 ## Known Issues
 
