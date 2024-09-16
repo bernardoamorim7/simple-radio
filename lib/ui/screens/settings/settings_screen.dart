@@ -14,7 +14,7 @@ class SettingsScreen extends ConsumerWidget {
     final configState = ref.watch(configProvider);
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         foregroundColor: Theme.of(context).colorScheme.primary,

@@ -27,7 +27,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final homeViewModel = ref.watch(homeViewModelProvider);
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         foregroundColor: Theme.of(context).colorScheme.primary,
@@ -56,7 +56,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
         actions: [
           PopupMenuButton<String>(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             icon: const Icon(Icons.more_vert),
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
               PopupMenuItem<String>(

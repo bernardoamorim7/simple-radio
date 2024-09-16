@@ -42,7 +42,7 @@ class AppTheme extends ChangeNotifier {
   static final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.light(
-      background: Colors.grey.shade200,
+      surface: Colors.grey.shade200,
       primary: Colors.grey.shade900,
       secondary: Colors.blue.shade200,
       inversePrimary: Colors.grey.shade100,
@@ -54,7 +54,7 @@ class AppTheme extends ChangeNotifier {
   static final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.light(
-      background: Colors.grey.shade900,
+      surface: Colors.grey.shade900,
       primary: Colors.grey.shade200,
       secondary: Colors.blue.shade200,
       inversePrimary: Colors.grey.shade800,

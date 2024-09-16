@@ -6,7 +6,7 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         foregroundColor: Theme.of(context).colorScheme.primary,
@@ -30,7 +30,7 @@ class AboutScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'Version 0.3.3',
+              'Version 0.3.4',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
